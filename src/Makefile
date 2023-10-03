@@ -1,0 +1,22 @@
+# List of all object files
+OBJS= tokenizer.o history.o ui.o
+
+# specifications -g (debug) -03 (optimization)
+CFLAGS=-g -O3
+
+# first target
+all: token_hist
+
+# stating prerequisites
+token_hist: $(OBJS)
+	cc -o token_hist $(CFLAGS) $(OBJS)
+
+# object files built from header files
+$(OBJS): tokenizer.h history.h
+
+# deleting all object files
+clean:
+	rm -f *.o token_hist
+
+run: token_hist
+	./token_hist
