@@ -1,13 +1,14 @@
-#include <stdio.h>
+#include <stdio.h> 
 #include <stdlib.h>
 #include "history.h" // project-related declarations
 
 /* Initialize the linked list to keep the history. */
 List* init_history() {
   List list;
-  List* ptr = &list;
+  List *hist = &list;
+  hist->root = NULL;
 
-  return ptr;
+  return hist;
 }
   
 
@@ -16,19 +17,29 @@ List* init_history() {
    char* str - the string to store
 */
 void add_history(List *list, char *str) {
-  if (list->root == 0) { // Append on an empty list
-    list->root->id = 1;
-    list->root->str = str;
+  puts("HELLO");
+  if (list->root == NULL) { // Append on an empty list
+    Item *root;
+    root->id = 1;
+    root->str = str;
+    root->next = NULL;
+
+    list->root = root;
+    puts("TESTING AT NULL");
     return;
   }
 
   Item *temp = list->root;
-  while (temp->next != 0) {
+  puts("TESTING BEFOR ADD") ;
+  while (temp->next != NULL) {
+    puts("ENDLESS?");
     temp = temp->next;
   }
 
   temp->next->id = temp->id + 1;
   temp->next->str = str;
+  puts("TESTING AT add");
+  
 }
 
   
@@ -38,7 +49,7 @@ void add_history(List *list, char *str) {
    int id - the id of the Item to find */
 char *get_history(List *list, int id) {
   Item *temp = list->root;
-
+  
   while (temp->id != id) {
     temp = temp->next;
   }
@@ -66,5 +77,4 @@ void free_history(List *list) {
   }
 
   free(list);
-  }
-    
+}
